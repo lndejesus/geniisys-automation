@@ -1,4 +1,4 @@
-package com.geniisys.automation;
+package com.geniisys.tdd.automation;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,8 +9,9 @@ import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
-import com.geniisys.automation.common.BrowserDriver;
-import com.geniisys.automation.main.pages.LogInPage;
+import com.geniisys.tdd.automation.common.BrowserDriver;
+import com.geniisys.tdd.automation.main.HomePage;
+import com.geniisys.tdd.automation.main.LoginPage;
 
 public abstract class BaseTest {
 
@@ -20,18 +21,20 @@ public abstract class BaseTest {
 	private String url;
 	private String username;
 	private String password;
+	
+	protected HomePage homePage;
 
 	@BeforeTest
 	public void setUp() {
 		Properties prop  = new Properties();
-
+		
 		try {
 			prop.load(new FileInputStream("C:/SELENIUM-AUTOMATION/CONFIG/geniisys.properties"));
 		} catch (IOException e) {
 			LOGGER.error(e);
 		}
 		
-		url = prop.getProperty("url", "http://192.10.10.110:10/Geniisys");
+		url = prop.getProperty("url", "http://localhost:8080/Geniisys/");
 		username = prop.getProperty("username", "CPI");
 		password = prop.getProperty("password", "CPI12345!");
 
@@ -39,13 +42,12 @@ public abstract class BaseTest {
 		driver.manage().window().maximize();
 		driver.get(url);
 
-		LogInPage loginPage = new LogInPage(driver);
-		loginPage.logInAs(username, password);
+		homePage = new LoginPage(driver).loginAs(username, password);
 	}
 
 	@AfterTest
-	public void breakDown() {
-		driver.close();
+	public void breakDown() throws InterruptedException {
+		driver.quit();
 	}
 
 	public BrowserDriver getDriver() {
