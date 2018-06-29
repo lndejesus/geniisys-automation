@@ -4,11 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.support.ui.Select;
 
 import com.geniisys.tdd.automation.common.DatePicker;
 import com.geniisys.tdd.automation.common.BrowserDriver;
 import com.geniisys.tdd.automation.common.MessageOverlay;
+import com.geniisys.tdd.automation.common.ModalDialog;
 
 public class IntermediaryMaintenancePage {
 	
@@ -17,6 +17,7 @@ public class IntermediaryMaintenancePage {
 	private BrowserDriver driver;
 	private DatePicker datePicker;
 	private MessageOverlay messageOverlay;
+	private ModalDialog modalDialog;
 	
 	private final By homeBtnLocator = By.id("footerHome");
 	
@@ -33,16 +34,21 @@ public class IntermediaryMaintenancePage {
 	private final By contactPersonTxtLocator = By.id("contactPerson");
 	private final By phoneNoTxtLocator = By.id("phoneNo");
 	
+	private final By issCdTxtLocator = By.id("issCd");
 	private final By issCdImgLocator = By.id("searchIssCdLOV");
 	private final By oldIntmNoTxtLocator = By.id("oldIntmNo");
 	
+	private final By whtaxCdTxtLocator = By.id("whtaxCode");
 	private final By whtaxCdImgLocator = By.id("searchWhtaxCodeLOV");
 	
+	private final By intmTypeTxtLocator = By.id("intmType");
 	private final By intmTypeImgLocator = By.id("searchIntmTypeLOV");
 	private final By tinTxtLocator = By.id("tin");
 	
+	private final By coIntmTypeTxtLocator = By.id("coIntmType");
 	private final By coIntmTypeImgLocator = By.id("searchCoIntmTypeLOV");
 	
+	private final By paytTermsTxtLocator = By.id("paytTerms");
 	private final By paytTermsImgLocator = By.id("searchPaytTermsLOV");
 	private final By birthdateImgLocator = By.id("imgBirthdate");
 	
@@ -67,10 +73,72 @@ public class IntermediaryMaintenancePage {
 	
 	private final By remarksTxtLocator = By.id("remarks");
 	
+	private final By deleteBtnLocator = By.id("btnDelete");
+	
+	private final By copyIntmBtnLocator = By.id("btnCopyIntm");
+	private final By additionalInfoBtnLocator = By.id("btnAdditionalInfo");
+	private final By masterIntmDetailsBtnLocator = By.id("btnMasterIntmDetails");
+	private final By cancelBtnLocator = By.id("btnCancel");
+	private final By saveBtnLocator = By.id("btnSave");
+	
+	public IntermediaryMaintenancePage delete() {
+		driver.findClickableElement(deleteBtnLocator).click();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage copy() {
+		driver.findClickableElement(copyIntmBtnLocator).click();
+		
+		if(messageOverlay.getMessageType().contains("INFORMATION")) {
+			LOGGER.info("Message prompt displayed.");
+			messageOverlay.clickOk();
+		}
+		
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage openAdditionalInfo() {
+		driver.findClickableElement(additionalInfoBtnLocator).click();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage closeAdditionalInfo() {
+		modalDialog.exitModal();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage checkMasterIntmDetails() {
+		driver.findClickableElement(masterIntmDetailsBtnLocator).click();
+		modalDialog.exitModal();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage cancel() {
+		driver.findClickableElement(cancelBtnLocator).click();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage save() {
+		driver.findClickableElement(saveBtnLocator).click();
+		
+		if(messageOverlay.getMessageType().contains("SUCCESS") ||
+		   messageOverlay.getMessageType().contains("INFORMATION")) {
+			LOGGER.info("Message prompt displayed.");
+			messageOverlay.clickOk();
+		}
+		
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	
+	
+	
+	
 	public IntermediaryMaintenancePage(BrowserDriver driver) {
 		this.driver = driver;
 		this.datePicker = new DatePicker(driver);
 		this.messageOverlay = new MessageOverlay(driver);
+		this.modalDialog = new ModalDialog(driver);
 	}
 	
 	public IntermediaryMaintenancePage goToHome() {
@@ -102,14 +170,6 @@ public class IntermediaryMaintenancePage {
 		return new IntermediaryMaintenancePage(driver);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	public IntermediaryMaintenancePage setIntmName(String intmName) {
 		driver.findElement(intmNameTxtLocator).clear();
 		driver.findElement(intmNameTxtLocator).sendKeys(intmName, Keys.ENTER);
@@ -130,5 +190,237 @@ public class IntermediaryMaintenancePage {
 		driver.findElement(intmNameTxtLocator).clear();
 		return new IntermediaryMaintenancePage(driver);
 	}
-
+	
+	public IntermediaryMaintenancePage setParentIntmNo(String keyword) {
+		driver.findClickableElement(parentIntmNoImgLocator).click();
+		modalDialog.searchAndSelect(keyword);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setContactPerson(String contactPerson) {
+		driver.findElement(contactPersonTxtLocator).clear();
+		driver.findElement(contactPersonTxtLocator).sendKeys(contactPerson);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setContactNo(String contactNo) {
+		driver.findElement(phoneNoTxtLocator).clear();
+		driver.findElement(phoneNoTxtLocator).sendKeys(contactNo);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setIssSource(String keyword) {
+		driver.findElement(issCdImgLocator).click();
+		modalDialog.searchAndSelect(keyword);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearIssSource() {
+		driver.findElement(issCdTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setOldIntmNo(String oldIntmNo) {
+		driver.findElement(oldIntmNoTxtLocator).clear();
+		driver.findElement(oldIntmNoTxtLocator).sendKeys(oldIntmNo);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setWhtaxCd(String keyword) {
+		driver.findElement(whtaxCdImgLocator).click();
+		modalDialog.searchAndSelect(keyword);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearWhtaxCd() {
+		driver.findElement(whtaxCdTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setIntmType(String keyword) {
+		driver.findElement(intmTypeImgLocator).click();
+		modalDialog.searchAndSelect(keyword);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearIntmType() {
+		driver.findElement(intmTypeTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setTin(String tin) {
+		driver.findElement(tinTxtLocator).clear();
+		driver.findElement(tinTxtLocator).sendKeys(tin);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearTin() {
+		driver.findElement(tinTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setCoIntmType(String keyword) {
+		driver.findElement(coIntmTypeImgLocator).click();
+		modalDialog.searchAndSelect(keyword);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearCoIntmType() {
+		driver.findElement(coIntmTypeTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setPaytTerms(String keyword) {
+		driver.findElement(paytTermsImgLocator).click();
+		modalDialog.searchAndSelect(keyword);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearPaytTerms() {
+		driver.findElement(paytTermsTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	// Sample date format ["Jan-01-2018" or "Jan/01/2018/"] day should be two digit
+	public IntermediaryMaintenancePage setBirthdate(String date) {
+		datePicker.setDate(birthdateImgLocator, date);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setMailAddr1(String mailAddr) {
+		driver.findElement(mailAddr1TxtLocator).clear();
+		driver.findElement(mailAddr1TxtLocator).sendKeys(mailAddr);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearMailAddr1() {
+		driver.findElement(mailAddr1TxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setMailAddr2(String mailAddr) {
+		driver.findElement(mailAddr2TxtLocator).clear();
+		driver.findElement(mailAddr2TxtLocator).sendKeys(mailAddr);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setMailAddr3(String mailAddr) {
+		driver.findElement(mailAddr3TxtLocator).clear();
+		driver.findElement(mailAddr3TxtLocator).sendKeys(mailAddr);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setBillAddr1(String billAddr) {
+		driver.findElement(billAddr1TxtLocator).clear();
+		driver.findElement(billAddr1TxtLocator).sendKeys(billAddr);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setBillAddr2(String billAddr) {
+		driver.findElement(billAddr2TxtLocator).clear();
+		driver.findElement(billAddr2TxtLocator).sendKeys(billAddr);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setBillAddr3(String billAddr) {
+		driver.findElement(billAddr3TxtLocator).clear();
+		driver.findElement(billAddr3TxtLocator).sendKeys(billAddr);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setEmailAddr(String emailAddr) {
+		driver.findElement(emailAddrTxtLocator).clear();
+		driver.findElement(emailAddrTxtLocator).sendKeys(emailAddr);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearEmailAddr() {
+		driver.findElement(emailAddrTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setParentIntmTin(String parentIntmTin) {
+		driver.findElement(parentIntmTinTxtLocator).clear();
+		driver.findElement(parentIntmTinTxtLocator).sendKeys(parentIntmTin);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearParentIntmTin() {
+		driver.findElement(parentIntmTinTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setSpecialRate(String specialRate) {
+		driver.findElement(specialRateTxtLocator).clear();
+		driver.findElement(specialRateTxtLocator).sendKeys(specialRate);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearSpecialRate() {
+		driver.findElement(specialRateTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setLFTag(String lfTag) {
+		driver.findElement(lfTagTxtLocator).clear();
+		driver.findElement(lfTagTxtLocator).sendKeys(lfTag);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setCorpTag(String corpTag) {
+		driver.findElement(corpTagTxtLocator).clear();
+		driver.findElement(corpTagTxtLocator).sendKeys(corpTag);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearCorpTag() {
+		driver.findElement(corpTagTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setActiveTag(String activeTag) {
+		driver.findElement(activeTagTxtLocator).clear();
+		driver.findElement(activeTagTxtLocator).sendKeys(activeTag);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearActiveTag() {
+		driver.findElement(activeTagTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setLicTag(String licTag) {
+		driver.findElement(licTagTxtLocator).clear();
+		driver.findElement(licTagTxtLocator).sendKeys(licTag);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearLicTag() {
+		driver.findElement(licTagTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setInputVatRate(String vatRate) {
+		driver.findElement(inputVatRateTxtLocator).clear();
+		driver.findElement(inputVatRateTxtLocator).sendKeys(vatRate);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage clearInputVatRate() {
+		driver.findElement(inputVatRateTxtLocator).clear();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage checkIntmHistory() {
+		driver.findClickableElement(historyImgLocator).click();
+		modalDialog.exitModal();
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
+	public IntermediaryMaintenancePage setRemarks(String remarks) {
+		driver.findElement(remarksTxtLocator).clear();
+		driver.findElement(remarksTxtLocator).sendKeys(remarks);
+		return new IntermediaryMaintenancePage(driver);
+	}
+	
 }

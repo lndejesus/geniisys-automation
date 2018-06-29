@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -45,12 +44,8 @@ public class MessageOverlay {
 	public void clickOk() {
 		waitForMessageToDisplay();
 		
-		try {
-			driver.findClickableElement(okBtnLocator).click();
-			LOGGER.info("'Ok' button clicked in the prompt.");
-		} catch(TimeoutException e) {
-			LOGGER.error(e);
-		}
+		driver.findClickableElement(okBtnLocator).click();
+		LOGGER.info("'Ok' button clicked in the prompt.");
 		
 		waitForMessageToClose();
 	}
