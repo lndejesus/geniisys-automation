@@ -1,4 +1,4 @@
-package com.geniisys.tdd.automation.underwriting.maintenance.intermediary.intermediary;
+package com.geniisys.tdd.automation.underwriting.maintenance.intermediary.intermediary.giiss076;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,9 +10,9 @@ import com.geniisys.tdd.automation.common.BrowserDriver;
 import com.geniisys.tdd.automation.common.MessageOverlay;
 import com.geniisys.tdd.automation.common.ModalDialog;
 
-public class IntermediaryMaintenancePage {
+public class GIISS076Page {
 	
-	private static final Logger LOGGER = LogManager.getLogger(IntermediaryMaintenancePage.class);
+	private static final Logger LOGGER = LogManager.getLogger(GIISS076Page.class);
 	
 	private BrowserDriver driver;
 	private DatePicker datePicker;
@@ -81,12 +81,12 @@ public class IntermediaryMaintenancePage {
 	private final By cancelBtnLocator = By.id("btnCancel");
 	private final By saveBtnLocator = By.id("btnSave");
 	
-	public IntermediaryMaintenancePage delete() {
+	public GIISS076Page delete() {
 		driver.findClickableElement(deleteBtnLocator).click();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage copy() {
+	public GIISS076Page copy() {
 		driver.findClickableElement(copyIntmBtnLocator).click();
 		
 		if(messageOverlay.getMessageType().contains("INFORMATION")) {
@@ -94,31 +94,31 @@ public class IntermediaryMaintenancePage {
 			messageOverlay.clickOk();
 		}
 		
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage openAdditionalInfo() {
+	public GIISS076Page openAdditionalInfo() {
 		driver.findClickableElement(additionalInfoBtnLocator).click();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage closeAdditionalInfo() {
+	public GIISS076Page closeAdditionalInfo() {
 		modalDialog.exitModal();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage checkMasterIntmDetails() {
+	public GIISS076Page checkMasterIntmDetails() {
 		driver.findClickableElement(masterIntmDetailsBtnLocator).click();
 		modalDialog.exitModal();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage cancel() {
+	public GIISS076Page cancel() {
 		driver.findClickableElement(cancelBtnLocator).click();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage save() {
+	public GIISS076Page save() {
 		driver.findClickableElement(saveBtnLocator).click();
 		
 		if(messageOverlay.getMessageType().contains("SUCCESS") ||
@@ -127,50 +127,50 @@ public class IntermediaryMaintenancePage {
 			messageOverlay.clickOk();
 		}
 		
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
 	
 	
 	
 	
-	public IntermediaryMaintenancePage(BrowserDriver driver) {
+	public GIISS076Page(BrowserDriver driver) {
 		this.driver = driver;
 		this.datePicker = new DatePicker(driver);
 		this.messageOverlay = new MessageOverlay(driver);
 		this.modalDialog = new ModalDialog(driver);
 	}
 	
-	public IntermediaryMaintenancePage goToHome() {
+	public GIISS076Page goToHome() {
 		driver.findElement(homeBtnLocator).click();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setRefIntmCode(String refCd) {
+	public GIISS076Page setRefIntmCode(String refCd) {
 		driver.findElement(refIntmCdTxtLocator).clear();
 		driver.findElement(refIntmCdTxtLocator).sendKeys(refCd);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setCANo(String caNo) {
+	public GIISS076Page setCANo(String caNo) {
 		driver.findElement(caNoTxtLocator).clear();
 		driver.findElement(caNoTxtLocator).sendKeys(caNo);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
 	// Sample date format ["Jan-01-2018" or "Jan/01/2018/"] day should be two digit
-	public IntermediaryMaintenancePage setCADate(String date) {
+	public GIISS076Page setCADate(String date) {
 		datePicker.setDate(caDateImgLocator, date);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setIntmDesignation(String designation) {
+	public GIISS076Page setIntmDesignation(String designation) {
 		driver.findElement(designationTxtLocator).clear();
 		driver.findElement(designationTxtLocator).sendKeys(designation);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setIntmName(String intmName) {
+	public GIISS076Page setIntmName(String intmName) {
 		driver.findElement(intmNameTxtLocator).clear();
 		driver.findElement(intmNameTxtLocator).sendKeys(intmName, Keys.ENTER);
 		
@@ -179,248 +179,248 @@ public class IntermediaryMaintenancePage {
 			messageOverlay.clickOk();
 		}
 		
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
 	public String getIntmName() {
 		return driver.findElement(intmNameTxtLocator).getAttribute("value");
 	}
 	
-	public IntermediaryMaintenancePage clearIntmName() {
+	public GIISS076Page clearIntmName() {
 		driver.findElement(intmNameTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setParentIntmNo(String keyword) {
+	public GIISS076Page setParentIntmNo(String keyword) {
 		driver.findClickableElement(parentIntmNoImgLocator).click();
 		modalDialog.searchAndSelect(keyword);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setContactPerson(String contactPerson) {
+	public GIISS076Page setContactPerson(String contactPerson) {
 		driver.findElement(contactPersonTxtLocator).clear();
 		driver.findElement(contactPersonTxtLocator).sendKeys(contactPerson);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setContactNo(String contactNo) {
+	public GIISS076Page setContactNo(String contactNo) {
 		driver.findElement(phoneNoTxtLocator).clear();
 		driver.findElement(phoneNoTxtLocator).sendKeys(contactNo);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setIssSource(String keyword) {
+	public GIISS076Page setIssSource(String keyword) {
 		driver.findElement(issCdImgLocator).click();
 		modalDialog.searchAndSelect(keyword);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearIssSource() {
+	public GIISS076Page clearIssSource() {
 		driver.findElement(issCdTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setOldIntmNo(String oldIntmNo) {
+	public GIISS076Page setOldIntmNo(String oldIntmNo) {
 		driver.findElement(oldIntmNoTxtLocator).clear();
 		driver.findElement(oldIntmNoTxtLocator).sendKeys(oldIntmNo);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setWhtaxCd(String keyword) {
+	public GIISS076Page setWhtaxCd(String keyword) {
 		driver.findElement(whtaxCdImgLocator).click();
 		modalDialog.searchAndSelect(keyword);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearWhtaxCd() {
+	public GIISS076Page clearWhtaxCd() {
 		driver.findElement(whtaxCdTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setIntmType(String keyword) {
+	public GIISS076Page setIntmType(String keyword) {
 		driver.findElement(intmTypeImgLocator).click();
 		modalDialog.searchAndSelect(keyword);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearIntmType() {
+	public GIISS076Page clearIntmType() {
 		driver.findElement(intmTypeTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setTin(String tin) {
+	public GIISS076Page setTin(String tin) {
 		driver.findElement(tinTxtLocator).clear();
 		driver.findElement(tinTxtLocator).sendKeys(tin);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearTin() {
+	public GIISS076Page clearTin() {
 		driver.findElement(tinTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setCoIntmType(String keyword) {
+	public GIISS076Page setCoIntmType(String keyword) {
 		driver.findElement(coIntmTypeImgLocator).click();
 		modalDialog.searchAndSelect(keyword);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearCoIntmType() {
+	public GIISS076Page clearCoIntmType() {
 		driver.findElement(coIntmTypeTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setPaytTerms(String keyword) {
+	public GIISS076Page setPaytTerms(String keyword) {
 		driver.findElement(paytTermsImgLocator).click();
 		modalDialog.searchAndSelect(keyword);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearPaytTerms() {
+	public GIISS076Page clearPaytTerms() {
 		driver.findElement(paytTermsTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
 	// Sample date format ["Jan-01-2018" or "Jan/01/2018/"] day should be two digit
-	public IntermediaryMaintenancePage setBirthdate(String date) {
+	public GIISS076Page setBirthdate(String date) {
 		datePicker.setDate(birthdateImgLocator, date);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setMailAddr1(String mailAddr) {
+	public GIISS076Page setMailAddr1(String mailAddr) {
 		driver.findElement(mailAddr1TxtLocator).clear();
 		driver.findElement(mailAddr1TxtLocator).sendKeys(mailAddr);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearMailAddr1() {
+	public GIISS076Page clearMailAddr1() {
 		driver.findElement(mailAddr1TxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setMailAddr2(String mailAddr) {
+	public GIISS076Page setMailAddr2(String mailAddr) {
 		driver.findElement(mailAddr2TxtLocator).clear();
 		driver.findElement(mailAddr2TxtLocator).sendKeys(mailAddr);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setMailAddr3(String mailAddr) {
+	public GIISS076Page setMailAddr3(String mailAddr) {
 		driver.findElement(mailAddr3TxtLocator).clear();
 		driver.findElement(mailAddr3TxtLocator).sendKeys(mailAddr);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setBillAddr1(String billAddr) {
+	public GIISS076Page setBillAddr1(String billAddr) {
 		driver.findElement(billAddr1TxtLocator).clear();
 		driver.findElement(billAddr1TxtLocator).sendKeys(billAddr);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setBillAddr2(String billAddr) {
+	public GIISS076Page setBillAddr2(String billAddr) {
 		driver.findElement(billAddr2TxtLocator).clear();
 		driver.findElement(billAddr2TxtLocator).sendKeys(billAddr);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setBillAddr3(String billAddr) {
+	public GIISS076Page setBillAddr3(String billAddr) {
 		driver.findElement(billAddr3TxtLocator).clear();
 		driver.findElement(billAddr3TxtLocator).sendKeys(billAddr);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setEmailAddr(String emailAddr) {
+	public GIISS076Page setEmailAddr(String emailAddr) {
 		driver.findElement(emailAddrTxtLocator).clear();
 		driver.findElement(emailAddrTxtLocator).sendKeys(emailAddr);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearEmailAddr() {
+	public GIISS076Page clearEmailAddr() {
 		driver.findElement(emailAddrTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setParentIntmTin(String parentIntmTin) {
+	public GIISS076Page setParentIntmTin(String parentIntmTin) {
 		driver.findElement(parentIntmTinTxtLocator).clear();
 		driver.findElement(parentIntmTinTxtLocator).sendKeys(parentIntmTin);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearParentIntmTin() {
+	public GIISS076Page clearParentIntmTin() {
 		driver.findElement(parentIntmTinTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setSpecialRate(String specialRate) {
+	public GIISS076Page setSpecialRate(String specialRate) {
 		driver.findElement(specialRateTxtLocator).clear();
 		driver.findElement(specialRateTxtLocator).sendKeys(specialRate);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearSpecialRate() {
+	public GIISS076Page clearSpecialRate() {
 		driver.findElement(specialRateTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setLFTag(String lfTag) {
+	public GIISS076Page setLFTag(String lfTag) {
 		driver.findElement(lfTagTxtLocator).clear();
 		driver.findElement(lfTagTxtLocator).sendKeys(lfTag);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setCorpTag(String corpTag) {
+	public GIISS076Page setCorpTag(String corpTag) {
 		driver.findElement(corpTagTxtLocator).clear();
 		driver.findElement(corpTagTxtLocator).sendKeys(corpTag);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearCorpTag() {
+	public GIISS076Page clearCorpTag() {
 		driver.findElement(corpTagTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setActiveTag(String activeTag) {
+	public GIISS076Page setActiveTag(String activeTag) {
 		driver.findElement(activeTagTxtLocator).clear();
 		driver.findElement(activeTagTxtLocator).sendKeys(activeTag);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearActiveTag() {
+	public GIISS076Page clearActiveTag() {
 		driver.findElement(activeTagTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setLicTag(String licTag) {
+	public GIISS076Page setLicTag(String licTag) {
 		driver.findElement(licTagTxtLocator).clear();
 		driver.findElement(licTagTxtLocator).sendKeys(licTag);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearLicTag() {
+	public GIISS076Page clearLicTag() {
 		driver.findElement(licTagTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setInputVatRate(String vatRate) {
+	public GIISS076Page setInputVatRate(String vatRate) {
 		driver.findElement(inputVatRateTxtLocator).clear();
 		driver.findElement(inputVatRateTxtLocator).sendKeys(vatRate);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage clearInputVatRate() {
+	public GIISS076Page clearInputVatRate() {
 		driver.findElement(inputVatRateTxtLocator).clear();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage checkIntmHistory() {
+	public GIISS076Page checkIntmHistory() {
 		driver.findClickableElement(historyImgLocator).click();
 		modalDialog.exitModal();
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage setRemarks(String remarks) {
+	public GIISS076Page setRemarks(String remarks) {
 		driver.findElement(remarksTxtLocator).clear();
 		driver.findElement(remarksTxtLocator).sendKeys(remarks);
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
 }

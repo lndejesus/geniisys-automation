@@ -1,4 +1,4 @@
-package com.geniisys.tdd.automation.underwriting.maintenance.intermediary.intermediary;
+package com.geniisys.ut.uw.maintenance.intermediary.giiss203;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

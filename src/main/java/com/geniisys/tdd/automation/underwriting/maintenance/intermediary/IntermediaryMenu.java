@@ -3,7 +3,7 @@ package com.geniisys.tdd.automation.underwriting.maintenance.intermediary;
 import org.openqa.selenium.By;
 
 import com.geniisys.tdd.automation.common.BrowserDriver;
-import com.geniisys.tdd.automation.underwriting.maintenance.intermediary.intermediary.IntermediaryListingMaintenancePage;
+import com.geniisys.tdd.automation.underwriting.maintenance.intermediary.intermediary.GIISS203Page;
 
 public class IntermediaryMenu {
 	
@@ -15,10 +15,10 @@ public class IntermediaryMenu {
 		this.driver = driver;
 	}
 	
-	public IntermediaryListingMaintenancePage goToIntermediaryListingMaintenancePage() {
+	public GIISS203Page goToIntermediaryListingMaintenancePage() {
 		driver.findClickableElement(intmListingLnkLocator).click();
 		
-		return new IntermediaryListingMaintenancePage(driver);
+		return new GIISS203Page(driver);
 	}
 
 }

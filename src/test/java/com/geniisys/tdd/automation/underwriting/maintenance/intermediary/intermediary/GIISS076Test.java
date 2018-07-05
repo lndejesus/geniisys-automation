@@ -13,8 +13,8 @@ public class GIISS076Test extends BaseTest {
 	
 private static final Logger LOGGER = LogManager.getLogger(GIISS076Test.class);
 	
-	private IntermediaryListingMaintenancePage giiss203;
-	private IntermediaryMaintenancePage giiss076;
+	private GIISS203Page giiss203;
+	private GIISS076Page giiss076;
 	
 	@BeforeMethod
 	public void goToGiiss203() {

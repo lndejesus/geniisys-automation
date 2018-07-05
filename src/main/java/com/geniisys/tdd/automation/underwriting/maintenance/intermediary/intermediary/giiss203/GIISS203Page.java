@@ -1,4 +1,4 @@
-package com.geniisys.tdd.automation.underwriting.maintenance.intermediary.intermediary;
+package com.geniisys.tdd.automation.underwriting.maintenance.intermediary.intermediary.giiss203;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -6,11 +6,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 import com.geniisys.tdd.automation.common.MessageOverlay;
+import com.geniisys.tdd.automation.underwriting.maintenance.intermediary.intermediary.giiss076.GIISS076Page;
 import com.geniisys.tdd.automation.common.BrowserDriver;
 
-public class IntermediaryListingMaintenancePage {
+public class GIISS203Page {
 	
-	private static final Logger LOGGER = LogManager.getLogger(IntermediaryListingMaintenancePage.class);
+	private static final Logger LOGGER = LogManager.getLogger(GIISS203Page.class);
 	
 	private BrowserDriver driver;
 	private MessageOverlay messageOverlay;
@@ -29,22 +30,22 @@ public class IntermediaryListingMaintenancePage {
 	private final By RemarksTxtLocator = By.id("txtRemarks");
 	private final By updateBtnLocator = By.id("btnUpdate");
 	
-	public IntermediaryListingMaintenancePage(BrowserDriver driver) {
+	public GIISS203Page(BrowserDriver driver) {
 		this.driver = driver;
 		this.messageOverlay = new MessageOverlay(driver);
 	}
 	
-	public IntermediaryListingMaintenancePage goToHome() {
+	public GIISS203Page goToHome() {
 		driver.findElement(homeBtnLocator).click();
-		return new IntermediaryListingMaintenancePage(driver);
+		return new GIISS203Page(driver);
 	}
 	
-	public IntermediaryListingMaintenancePage selectIntmRecord() {
+	public GIISS203Page selectIntmRecord() {
 		driver.findElement(intmRecordTabLocator).click();
-		return new IntermediaryListingMaintenancePage(driver);
+		return new GIISS203Page(driver);
 	}
 	
-	public IntermediaryListingMaintenancePage setActiveTag(String active) {
+	public GIISS203Page setActiveTag(String active) {
 		if("A".equals(active)) {
 			if(!driver.findElement(activeTagChkLocator).isSelected()) {
 				driver.findClickableElement(activeTagChkLocator).click();
@@ -55,10 +56,10 @@ public class IntermediaryListingMaintenancePage {
 			}
 		}
 		
-		return new IntermediaryListingMaintenancePage(driver);
+		return new GIISS203Page(driver);
 	}
 	
-	public IntermediaryListingMaintenancePage setIntmName(String intmName) {
+	public GIISS203Page setIntmName(String intmName) {
 		driver.findElement(intmNameTxtLocator).clear();
 		driver.findElement(intmNameTxtLocator).sendKeys(intmName, Keys.ENTER);
 		
@@ -67,31 +68,31 @@ public class IntermediaryListingMaintenancePage {
 			messageOverlay.clickOk();
 		}
 		
-		return new IntermediaryListingMaintenancePage(driver);
+		return new GIISS203Page(driver);
 	}
 	
 	public String getIntmName() {
 		return driver.findElement(intmNameTxtLocator).getAttribute("value");
 	}
 	
-	public IntermediaryListingMaintenancePage clearIntmName() {
+	public GIISS203Page clearIntmName() {
 		driver.findElement(intmNameTxtLocator).clear();
-		return new IntermediaryListingMaintenancePage(driver);
+		return new GIISS203Page(driver);
 	}
 	
-	public IntermediaryListingMaintenancePage setRefIntmCode(String refCd) {
+	public GIISS203Page setRefIntmCode(String refCd) {
 		driver.findElement(refIntmCdTxtLocator).clear();
 		driver.findElement(refIntmCdTxtLocator).sendKeys(refCd);
-		return new IntermediaryListingMaintenancePage(driver);
+		return new GIISS203Page(driver);
 	}
 	
-	public IntermediaryListingMaintenancePage setRemarks(String remarks) {
+	public GIISS203Page setRemarks(String remarks) {
 		driver.findElement(RemarksTxtLocator).clear();
 		driver.findElement(RemarksTxtLocator).sendKeys(remarks);
-		return new IntermediaryListingMaintenancePage(driver);
+		return new GIISS203Page(driver);
 	}
 	
-	public IntermediaryListingMaintenancePage updateChanges() {
+	public GIISS203Page updateChanges() {
 		driver.findClickableElement(updateBtnLocator).click();
 		LOGGER.info("'Update' button clicked.");
 		
@@ -101,19 +102,19 @@ public class IntermediaryListingMaintenancePage {
 			messageOverlay.clickOk();
 		}
 		
-		return new IntermediaryListingMaintenancePage(driver);
+		return new GIISS203Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage dtAddIntm() {
+	public GIISS076Page dtAddIntm() {
 		driver.findElement(addTabLocator).click();
 		
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 	
-	public IntermediaryMaintenancePage dtEditIntm() {
+	public GIISS076Page dtEditIntm() {
 		driver.findElement(editTabLocator).click();
 		
-		return new IntermediaryMaintenancePage(driver);
+		return new GIISS076Page(driver);
 	}
 
 }

@@ -139,7 +139,7 @@ public final class BrowserDriver implements WebDriver {
 		return element;
 	}
 	
-	public WebElement findHiddenElement(By locator, int timeOut) {
+	public WebElement findHiddenElement(By locator, long timeOut) {
 		element = new WebDriverWait(driver(), timeOut)
 					.until(ExpectedConditions.presenceOfElementLocated(locator));
 			

@@ -15,6 +15,7 @@ public class DatePicker {
 		this.driver = driver;
 	}
 	
+	// Sample date format ["Jan-01-2018" or "Jan/01/2018/"] day should be two digit
 	public void setDate(By locator, String date) {
 		driver.findClickableElement(locator).click();
 		setMonth(extractMonth(date));

@@ -27,7 +27,7 @@ public class MessageOverlay {
 	
 	public boolean isDisplayed() {
 		try {
-			return driver.findHiddenElement(messageOvlLocator, 1).isDisplayed();
+			return driver.findHiddenElement(messageOvlLocator, (long) 0.5).isDisplayed();
 		} catch(Exception e) {
 			return false;
 		}
