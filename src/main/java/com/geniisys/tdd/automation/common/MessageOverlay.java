@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 public class MessageOverlay {
 	
 	private BrowserDriver driver;
-	private static final Logger LOGGER = LogManager.getLogger(MessageOverlay.class.getName());
+	private final Logger log = LogManager.getLogger(MessageOverlay.class.getName());
 	
 	private static final long TIMEOUT = 10;
 	private static final long POLLING_TIME = 1;
@@ -27,7 +27,7 @@ public class MessageOverlay {
 	
 	public boolean isDisplayed() {
 		try {
-			return driver.findHiddenElement(messageOvlLocator, (long) 0.5).isDisplayed();
+			return driver.findHiddenElement(messageOvlLocator, 1).isDisplayed();
 		} catch(Exception e) {
 			return false;
 		}
@@ -45,7 +45,7 @@ public class MessageOverlay {
 		waitForMessageToDisplay();
 		
 		driver.findClickableElement(okBtnLocator).click();
-		LOGGER.info("'Ok' button clicked in the prompt.");
+		log.info("'Ok' button clicked in the prompt.");
 		
 		waitForMessageToClose();
 	}
@@ -56,7 +56,7 @@ public class MessageOverlay {
 	
 	private void waitForMessageToClose() {
 		fluentlyWait().until(ExpectedConditions.invisibilityOfElementLocated(messageOvlLocator));
-		LOGGER.info("Message prompt closed.");
+		log.info("Message prompt closed.");
 	}
 	
 	private FluentWait<BrowserDriver> fluentlyWait() {

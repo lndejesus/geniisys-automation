@@ -142,7 +142,10 @@ public class GIISS076Page {
 	}
 	
 	public GIISS076Page goToHome() {
-		driver.findElement(homeBtnLocator).click();
+		if(driver.findElement(homeBtnLocator, 1).isDisplayed()) {
+			driver.findElement(homeBtnLocator).click();
+		}
+		
 		return new GIISS076Page(driver);
 	}
 	

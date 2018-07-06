@@ -1,5 +1,7 @@
 package com.geniisys.tdd.automation.common;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 
 public class DataTable {
@@ -14,12 +16,24 @@ public class DataTable {
 		this.driver = driver;
 	}
 	
-	public void clickAdd() {
+	public void add() {
 		driver.findElement(addTabLocator).click();
 	}
 	
-	public DataTable clickEdit() {
+	public DataTable edit() {
 		driver.findElement(editTabLocator).click();
+		return new DataTable(driver);
+	}
+	
+	public DataTable delete() {
+		return new DataTable(driver);
+	}
+	
+	public DataTable refresh() {
+		return new DataTable(driver);
+	}
+	
+	public DataTable filter(Map<String, Object> filterBy) {
 		return new DataTable(driver);
 	}
 	

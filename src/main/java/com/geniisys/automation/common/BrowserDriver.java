@@ -122,17 +122,8 @@ public final class BrowserDriver implements WebDriver {
 
 		return element;
 	}
-	
+
 	public WebElement findHiddenElement(By locator) {
-		WebElement element =new WebDriverWait(driver(), timeOut)
-				.until(ExpectedConditions.presenceOfElementLocated(locator));
-
-		scrollIntoView(element);
-
-		return element;
-	}
-
-	public WebElement findHiddenElement(By locator, int timeOut) {
 		WebElement element =new WebDriverWait(driver(), timeOut)
 				.until(ExpectedConditions.presenceOfElementLocated(locator));
 

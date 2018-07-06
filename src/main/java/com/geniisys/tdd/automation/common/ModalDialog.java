@@ -33,14 +33,15 @@ public class ModalDialog {
 			
 			driver.findElement(findFldLocator).sendKeys(keyword, Keys.ENTER);
 			LOGGER.info("Find field value set to '" + keyword + "'.");
-
-			driver.findElement(By.xpath("//div[starts-with(@class,'mtgInnerCell') "
+			
+			// commented out for a while, for confirmation
+			/*driver.findElement(By.xpath("//div[starts-with(@class,'mtgInnerCell') "
 					+ "and contains(text(),"
 					+ " \"" + keyword + "\")]")).click();
 			LOGGER.info("Record that contains text '" + keyword + "' clicked.");
 			
 			driver.findClickableElement(okBtnLocator).click();
-			LOGGER.info("'Ok' button clicked.");
+			LOGGER.info("'Ok' button clicked.");*/
 		}
 		
 		LOGGER.info("Prompt closed.");

@@ -9,11 +9,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -21,19 +23,23 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.io.Files;
 
 public final class BrowserDriver implements WebDriver {
 
-	private static final Logger LOGGER = LogManager.getLogger(BrowserDriver.class.getName());
+	private final Logger log = LogManager.getLogger(BrowserDriver.class.getName());
 	
 	private WebDriver driver;
 	private WebElement element;
 	
 	private String driverPath;
-	private int timeOut;
+	private int webDriverWaitTimeOut;
+	
+	private static final long TIMEOUT = 10;
+	private static final long POLLING_TIME = 1;
 	
 	public BrowserDriver(String browserName) {
 		this.driver = createDriver(browserName);
@@ -45,11 +51,11 @@ public final class BrowserDriver implements WebDriver {
 		try {
 			prop.load(new FileInputStream("C:/SELENIUM-AUTOMATION/CONFIG/webdriver.properties"));
 		} catch(IOException e) {
-			LOGGER.error(e);
+			log.error(e);
 		}
 		
 		driverPath = prop.getProperty("path");
-		timeOut = Integer.valueOf(prop.getProperty("timeout"));
+		webDriverWaitTimeOut = Integer.valueOf(prop.getProperty("timeout"));
 		
 		if("FIREFOX".equalsIgnoreCase(browserName)) {
 			return firefoxDriver();
@@ -63,32 +69,24 @@ public final class BrowserDriver implements WebDriver {
 	private WebDriver firefoxDriver() {
 		String geckoDriverPath = driverPath + "geckodriver.exe";
 		
-		if(!new File(geckoDriverPath).exists()) {
-			LOGGER.error("Driver file geckodriver.exe does not exist!");
-		}
-		
 		try {
 			System.setProperty("webdriver.gecko.driver", geckoDriverPath);
 			return new FirefoxDriver();
-		} catch(Exception e) {
-			LOGGER.error("Could not create Firefox driver.");
-			throw new RuntimeException("Could not create Firefox driver.");
+		} catch(IllegalStateException e) {
+			log.error("The driver executable does not exist: " + geckoDriverPath);
+			throw e;
 		}
 	}
 	
 	private WebDriver chromeDriver() {
 		String chromeDriverPath = driverPath + "chromedriver.exe";
 		
-		if(!new File(chromeDriverPath).exists()) {
-			LOGGER.error("Driver file chromedriver.exe does not exist!");
-		}
-		
 		try {
 			System.setProperty("webdriver.chrome.driver", chromeDriverPath);
 			return new ChromeDriver();
-		} catch(Exception e) {
-			LOGGER.error("Could not create Chrome driver.");
-			throw new RuntimeException("Could not create Chrome driver.");
+		} catch(IllegalStateException e) {
+			log.error("The driver executable does not exist: " + chromeDriverPath);
+			throw e;
 		}
 	}
 	
@@ -113,6 +111,15 @@ public final class BrowserDriver implements WebDriver {
 	
 	@Override
 	public WebElement findElement(By locator) {
+		element = new WebDriverWait(driver(), webDriverWaitTimeOut)
+					.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		
+		scrollIntoView(element);
+		
+		return element;
+	}
+	
+	public WebElement findElement(By locator, long timeOut) {
 		element = new WebDriverWait(driver(), timeOut)
 					.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		
@@ -122,7 +129,7 @@ public final class BrowserDriver implements WebDriver {
 	}
 	
 	public WebElement findClickableElement(By locator) {
-		element = new WebDriverWait(driver(), timeOut)
+		element = new WebDriverWait(driver(), webDriverWaitTimeOut)
 					.until(ExpectedConditions.elementToBeClickable(locator));
 			
 		scrollIntoView(element);
@@ -131,7 +138,7 @@ public final class BrowserDriver implements WebDriver {
 	}
 	
 	public WebElement findHiddenElement(By locator) {
-		element = new WebDriverWait(driver(), timeOut)
+		element = new WebDriverWait(driver(), webDriverWaitTimeOut)
 					.until(ExpectedConditions.presenceOfElementLocated(locator));
 			
 		scrollIntoView(element);
@@ -207,8 +214,18 @@ public final class BrowserDriver implements WebDriver {
 		try {
 			Files.copy(src, new File("C:/SELENIUM-AUTOMATION/SCREENSHOTS/" + testName + " "+ sysdate + ".png"));
 		} catch(IOException e) {
-			LOGGER.error(e);
+			log.error(e);
 		}
+	}
+	
+	public FluentWait<BrowserDriver> fluentlyWait() {
+		FluentWait<BrowserDriver> wait = new FluentWait<>(this);
+		
+		wait = wait.withTimeout(TIMEOUT, TimeUnit.SECONDS)
+				   .pollingEvery(POLLING_TIME, TimeUnit.SECONDS)
+				   .ignoring(NoSuchElementException.class);
+		
+		return wait;
 	}
 
 }

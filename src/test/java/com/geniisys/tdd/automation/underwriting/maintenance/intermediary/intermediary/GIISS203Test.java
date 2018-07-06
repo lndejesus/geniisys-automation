@@ -14,15 +14,15 @@ public class GIISS203Test extends BaseTest {
 	private String currentIntmName;
 	private String intmName;
 	
-	private final String uniqueIntmName1 = "UNIQUE INTM NAME 1";
-	private final String uniqueIntmName2 = "UNIQUE INTM NAME 2";
+	private final String uniqueIntmName1 = "UNIQUE INTM NAME 1 - 203";
+	private final String uniqueIntmName2 = "UNIQUE INTM NAME 2 - 203";
 	
 	@BeforeMethod
 	public void goToGiiss203() {
 		giiss203 = homePage.goToUnderwriting()
-								.goToMaintenance()
-								.goToIntermediary()
-								.goToIntermediaryListingMaintenancePage();
+						   .goToMaintenance()
+						   .goToIntermediary()
+						   .goToIntermediaryListingMaintenancePage();
 	}
 	
 	@AfterMethod
@@ -41,6 +41,18 @@ public class GIISS203Test extends BaseTest {
 	}
 	
 	@Test(priority=0)
+	public void checkRequiredIntmName() {
+		giiss203.selectIntmRecord();
+		
+		setCurrentAndUniqueIntmName();
+		
+		giiss203.clearIntmName()		// Info message should display after clicking update
+				.updateChanges()
+				.setIntmName(intmName)	// Set unique value
+				.updateChanges();
+	}
+	
+	@Test(priority=1)
 	public void modifyIntmDetailsAndSetUniqueIntmName() {
 		giiss203.selectIntmRecord();
 		
@@ -50,7 +62,7 @@ public class GIISS203Test extends BaseTest {
 				.updateChanges();
 	}
 	
-	@Test(priority=1)
+	@Test(priority=2)
 	public void modifyIntmDetailsAndSetExistingIntmName() {
 		giiss203.selectIntmRecord();
 		
@@ -58,18 +70,6 @@ public class GIISS203Test extends BaseTest {
 		
 		giiss203.setIntmName(currentIntmName)	// Set existing value
 				.setIntmName(intmName)			// Set unique value
-				.updateChanges();
-	}
-	
-	@Test(priority=2)
-	public void modifyIntmDetailsAndSetIntmNameToNull() {
-		giiss203.selectIntmRecord();
-		
-		setCurrentAndUniqueIntmName();
-		
-		giiss203.clearIntmName()		// Info message should display after clicking update
-				.updateChanges()
-				.setIntmName(intmName)	// Set unique value
 				.updateChanges();
 	}
 

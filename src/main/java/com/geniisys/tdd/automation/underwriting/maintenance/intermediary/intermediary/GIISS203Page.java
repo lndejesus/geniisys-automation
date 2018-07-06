@@ -22,7 +22,7 @@ public class GIISS203Page {
 	private final By activeTagChkLocator = By.id("chkActiveTag");
 	private final By intmNameTxtLocator = By.id("txtIntmName");
 	private final By refIntmCdTxtLocator = By.id("txtRefIntmCd");
-	private final By RemarksTxtLocator = By.id("txtRemarks");
+	private final By remarksTxtLocator = By.id("txtRemarks");
 	private final By updateBtnLocator = By.id("btnUpdate");
 	
 	public GIISS203Page(BrowserDriver driver) {
@@ -32,7 +32,10 @@ public class GIISS203Page {
 	}
 	
 	public GIISS203Page goToHome() {
-		driver.findElement(homeBtnLocator).click();
+		if(driver.findElement(homeBtnLocator, 1).isDisplayed()) {
+			driver.findElement(homeBtnLocator).click();
+		}
+		
 		return new GIISS203Page(driver);
 	}
 	
@@ -42,13 +45,12 @@ public class GIISS203Page {
 	}
 	
 	public GIISS076Page addIntmRecord() {
-		dataTable.clickAdd();
+		dataTable.add();
 		return new GIISS076Page(driver);
 	}
 	
-	public GIISS076Page selectIntmRecordThenEdit() {
-		dataTable.selectRecord()
-				 .clickEdit();
+	public GIISS076Page editIntmRecord() {
+		dataTable.edit();
 		return new GIISS076Page(driver);
 	}
 	
@@ -90,8 +92,8 @@ public class GIISS203Page {
 	}
 	
 	public GIISS203Page setRemarks(String remarks) {
-		driver.findElement(RemarksTxtLocator).clear();
-		driver.findElement(RemarksTxtLocator).sendKeys(remarks);
+		driver.findElement(remarksTxtLocator).clear();
+		driver.findElement(remarksTxtLocator).sendKeys(remarks);
 		return new GIISS203Page(driver);
 	}
 	
